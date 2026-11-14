@@ -1,0 +1,51 @@
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  width: min(100%, var(--app-width));
+  height: calc(var(--nav-height) + env(safe-area-inset-bottom, 0px));
+  padding: 6px 8px env(safe-area-inset-bottom, 0px);
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  align-items: end;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+}
+
+.bottom-nav__tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding-bottom: 10px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.bottom-nav__tab.is-active {
+  color: var(--green-900);
+  font-weight: 700;
+}
+
+.bottom-nav__icon {
+  display: grid;
+  place-items: center;
+}
+
+/* The round green Post button sticks out above the bar */
+.bottom-nav__tab--primary .bottom-nav__icon {
+  width: 50px;
+  height: 50px;
+  margin-top: -22px;
+  border-radius: 50%;
+  background: var(--green-900);
+  color: #fff;
+  box-shadow: 0 0 0 4px var(--surface), 0 6px 14px rgba(47, 82, 64, 0.3);
+}
+
+.bottom-nav__tab--primary {
+  color: var(--text);
+}
