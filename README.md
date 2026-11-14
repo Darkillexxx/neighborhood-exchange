@@ -1,16 +1,30 @@
-# React + Vite
+# Neighborhood Exchange
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Your local market place: furniture and household items, exchanged between neighbors.
+Mobile web app built with React + Vite.
 
-Currently, two official plugins are available:
+## Run locally
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```bash
+npm install
+npm run dev -- --host
+```
 
-## React Compiler
+Open the **Local** link on your computer, or the **Network** link on a phone in the same Wi-Fi.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Project structure
 
-## Expanding the Oxlint configuration
+```
+src/
+  main.jsx            app entry, router
+  App.jsx             routes + bottom navigation
+  index.css           design tokens (colors, radius) and global styles
+  data/items.js       mock items until we have a backend
+  components/         reusable UI pieces (BottomNav, ItemCard, SearchBar, ...)
+  pages/              one file per screen (Home, ItemDetails, ...)
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+## Branches
+
+- `main`: stable, only updated through pull requests
+- `dev`: day-to-day work
