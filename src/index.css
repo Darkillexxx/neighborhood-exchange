@@ -1,16 +1,17 @@
 /* Design tokens taken from the MVP screens.
    Change colors here and the whole app follows. */
 :root {
-  --green-900: #2f5240;   /* primary buttons, active tab, Post button */
-  --green-700: #3f6a53;
-  --green-100: #e3ebe2;   /* soft green fills */
-  --bg: #f6f7f3;          /* app background */
+  --green-900: #285e46;   /* primary buttons, active tab, Post button */
+  --green-700: #43725d;
+  --green-100: #edf2e9;   /* soft green fills: condition chips, pickup card */
+  --bg: #f6faf4;          /* app background */
   --surface: #ffffff;     /* cards, inputs */
-  --chip: #edf0e9;        /* inactive chips */
-  --text: #1d2621;
-  --muted: #6c766f;
-  --border: #e2e6de;
-  --desk: #e7eae3;        /* page color around the phone column on desktop */
+  --chip: #eef2eb;        /* inactive chips */
+  --text: #203b31;
+  --body: #5d6e63;        /* longer paragraphs */
+  --muted: #6f7c73;
+  --border: #e2e8df;
+  --desk: #e8ede5;        /* page color around the phone column on desktop */
 
   --radius-sm: 10px;
   --radius: 14px;
