@@ -14,6 +14,7 @@ export const CATEGORIES = [
 export const ITEMS = [
   {
     id: 'linen-sofa',
+    area: 'Schöneberg',
     title: 'Linen two-seater sofa',
     price: 85,
     category: 'furniture',
@@ -28,6 +29,7 @@ export const ITEMS = [
   },
   {
     id: 'oak-sideboard',
+    area: 'Friedenau',
     title: 'Vintage oak sideboard',
     price: 0,
     category: 'furniture',
@@ -42,6 +44,7 @@ export const ITEMS = [
   },
   {
     id: 'espresso-machine',
+    area: 'Schöneberg',
     title: 'Espresso machine',
     price: 45,
     category: 'appliances',
@@ -56,6 +59,7 @@ export const ITEMS = [
   },
   {
     id: 'washer',
+    area: 'Wilmersdorf',
     title: 'Front-load washer',
     price: 120,
     category: 'appliances',
@@ -70,6 +74,7 @@ export const ITEMS = [
   },
   {
     id: 'armchair',
+    area: 'Schöneberg',
     title: 'Reading armchair',
     price: 30,
     category: 'furniture',
@@ -84,6 +89,7 @@ export const ITEMS = [
   },
   {
     id: 'microwave',
+    area: 'Friedenau',
     title: 'Microwave',
     price: 0,
     category: 'appliances',
@@ -98,6 +104,7 @@ export const ITEMS = [
   },
   {
     id: 'floor-lamp',
+    area: 'Schöneberg',
     title: 'Floor lamp',
     price: 15,
     category: 'furniture',
@@ -112,6 +119,7 @@ export const ITEMS = [
   },
   {
     id: 'bookshelf',
+    area: 'Wilmersdorf',
     title: 'Tall bookshelf',
     price: 0,
     category: 'furniture',
