@@ -1,4 +1,6 @@
 // Mock data until we have a backend.
+// `distanceKm` and `bearing` (degrees clockwise from north) place the item
+// around the user on the Nearby map.
 // `image` is a photo in public/ (the path starts with "/").
 // Items without a photo show a placeholder instead: `icon` is a lucide-react
 // icon name and `tint` is the background color behind it.
@@ -20,6 +22,7 @@ export const ITEMS = [
     price: 85,
     category: 'furniture',
     distanceKm: 0.4,
+    bearing: 180,
     postedAgo: 'Just listed',
     condition: 'Good condition',
     size: '160 × 85 × 80 cm',
@@ -36,6 +39,7 @@ export const ITEMS = [
     price: 0,
     category: 'furniture',
     distanceKm: 0.7,
+    bearing: 30,
     postedAgo: '1 hour ago',
     condition: 'Used',
     size: '140 × 45 × 75 cm',
@@ -52,6 +56,7 @@ export const ITEMS = [
     price: 45,
     category: 'appliances',
     distanceKm: 0.3,
+    bearing: 0,
     postedAgo: '2 hours ago',
     condition: 'Like new',
     size: '30 × 25 × 35 cm',
@@ -68,6 +73,7 @@ export const ITEMS = [
     price: 120,
     category: 'appliances',
     distanceKm: 1.2,
+    bearing: 135,
     postedAgo: '3 hours ago',
     condition: 'Good condition',
     size: '60 × 60 × 85 cm',
@@ -84,6 +90,7 @@ export const ITEMS = [
     price: 30,
     category: 'furniture',
     distanceKm: 0.5,
+    bearing: 90,
     postedAgo: '5 hours ago',
     condition: 'Good condition',
     size: '75 × 80 × 95 cm',
@@ -99,6 +106,7 @@ export const ITEMS = [
     price: 0,
     category: 'appliances',
     distanceKm: 0.9,
+    bearing: 225,
     postedAgo: 'Yesterday',
     condition: 'Used',
     size: '45 × 35 × 26 cm',
@@ -114,6 +122,7 @@ export const ITEMS = [
     price: 15,
     category: 'furniture',
     distanceKm: 0.6,
+    bearing: 270,
     postedAgo: 'Yesterday',
     condition: 'Like new',
     size: '160 cm tall',
@@ -129,6 +138,7 @@ export const ITEMS = [
     price: 0,
     category: 'furniture',
     distanceKm: 1.1,
+    bearing: 315,
     postedAgo: '2 days ago',
     condition: 'Used',
     size: '80 × 30 × 190 cm',
