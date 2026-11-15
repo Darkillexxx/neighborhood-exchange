@@ -6,7 +6,8 @@ import SearchBar from '../components/SearchBar.jsx'
 import CategoryChips from '../components/CategoryChips.jsx'
 import RadiusControl from '../components/RadiusControl.jsx'
 import ItemImage from '../components/ItemImage.jsx'
-import { CATEGORIES, ITEMS, filterItems, formatPrice } from '../data/items.js'
+import { CATEGORIES, filterItems, formatPrice } from '../data/items.js'
+import { getAllItems } from '../data/postedItems.js'
 import { RADIUS_DEFAULT, formatRadius, isWithinRadius, itemOffset, pinLabel } from '../data/map.js'
 import './Nearby.css'
 
@@ -35,7 +36,9 @@ export default function Nearby() {
 
   const scale = PX_PER_M
   const circle = radius * scale
-  const items = filterItems(ITEMS, { query, category })
+  // The user's own posts sit right under their dot, so the map leaves them out
+  const [nearbyItems] = useState(() => getAllItems().filter((item) => !item.mine))
+  const items = filterItems(nearbyItems, { query, category })
   const inRadius = items.filter((item) => isWithinRadius(item, radius))
 
   // Lower pins are drawn on top, so overlapping pins read like a stack

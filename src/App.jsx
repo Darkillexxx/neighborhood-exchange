@@ -1,16 +1,17 @@
 import { useEffect } from 'react'
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
-import { Plus, MessageSquare, UserRound } from 'lucide-react'
+import { MessageSquare, UserRound } from 'lucide-react'
 import BottomNav from './components/BottomNav.jsx'
 import Home from './pages/Home.jsx'
 import Nearby from './pages/Nearby.jsx'
+import PostItem from './pages/PostItem.jsx'
 import ItemDetails from './pages/ItemDetails.jsx'
 import Placeholder from './pages/Placeholder.jsx'
 
 export default function App() {
-  // The item page has its own action bar, so the bottom navigation is hidden there
+  // The item page and the Post form have their own action bar instead of the bottom navigation
   const { pathname } = useLocation()
-  const showNav = !pathname.startsWith('/item/')
+  const showNav = !pathname.startsWith('/item/') && pathname !== '/post'
   // Nearby is a full-screen map: the page itself must not scroll
   const isMap = pathname === '/nearby'
 
@@ -25,10 +26,7 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/item/:id" element={<ItemDetails />} />
         <Route path="/nearby" element={<Nearby />} />
-        <Route
-          path="/post"
-          element={<Placeholder icon={Plus} title="Post an item" text="The form for listing an item is coming soon." />}
-        />
+        <Route path="/post" element={<PostItem />} />
         <Route
           path="/inbox"
           element={<Placeholder icon={MessageSquare} title="Inbox" text="Chats with buyers and sellers will appear here." />}
