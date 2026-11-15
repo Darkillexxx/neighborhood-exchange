@@ -5,23 +5,26 @@
   transform: translateX(-50%);
   z-index: 20;
   width: min(100%, var(--app-width));
-  height: calc(var(--nav-height) + env(safe-area-inset-bottom, 0px));
-  padding: 6px 8px env(safe-area-inset-bottom, 0px);
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  align-items: end;
+  height: calc(var(--nav-height) + var(--nav-inset));
+  padding: 8px 0 var(--nav-inset);
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background: var(--surface);
   border-top: 1px solid var(--border);
 }
 
+/* 76px = a 48px tab plus the 28px gap between tabs in the design.
+   On phones narrower than the design all five tabs shrink together. */
 .bottom-nav__tab {
+  flex: 0 1 76px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 3px;
-  padding-bottom: 10px;
+  gap: 4px;
   color: var(--muted);
-  font-size: 11px;
+  font-size: 10px;
+  line-height: 12px;
   font-weight: 500;
 }
 
@@ -35,17 +38,16 @@
   place-items: center;
 }
 
-/* The round green Post button sticks out above the bar */
-.bottom-nav__tab--primary .bottom-nav__icon {
-  width: 50px;
-  height: 50px;
-  margin-top: -22px;
-  border-radius: 50%;
-  background: var(--green-900);
-  color: #fff;
-  box-shadow: 0 0 0 4px var(--surface), 0 6px 14px rgba(47, 82, 64, 0.3);
+/* Post: a white plus on a green pill, with a label that is always green */
+.bottom-nav__tab--primary {
+  color: var(--green-900);
+  font-weight: 600;
 }
 
-.bottom-nav__tab--primary {
-  color: var(--text);
+.bottom-nav__tab--primary .bottom-nav__icon {
+  width: 48px;
+  height: 46px;
+  border-radius: var(--radius-pill);
+  background: var(--green-900);
+  color: #fff;
 }

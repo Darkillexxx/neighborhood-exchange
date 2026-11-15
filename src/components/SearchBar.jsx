@@ -1,10 +1,12 @@
-import { Search, SlidersHorizontal } from 'lucide-react'
+import Icon from './Icon.jsx'
+import searchIcon from '../assets/icons/search.svg'
+import filterIcon from '../assets/icons/filter.svg'
 import './SearchBar.css'
 
 export default function SearchBar({ value, onChange }) {
   return (
     <div className="search-bar">
-      <Search size={18} strokeWidth={1.9} className="search-bar__icon" aria-hidden="true" />
+      <Icon src={searchIcon} />
       <input
         id="search"
         type="search"
@@ -15,7 +17,8 @@ export default function SearchBar({ value, onChange }) {
         aria-label="Search items"
       />
       <button type="button" className="search-bar__filter" aria-label="Filters (coming soon)" title="Filters coming soon">
-        <SlidersHorizontal size={18} strokeWidth={1.9} />
+        {/* A plain image, not <Icon>: the knobs are filled white, which a one-color mask would lose */}
+        <img src={filterIcon} alt="" />
       </button>
     </div>
   )

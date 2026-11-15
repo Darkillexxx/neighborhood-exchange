@@ -1,16 +1,21 @@
 import { Link } from 'react-router-dom'
-import { Heart } from 'lucide-react'
+import Icon from './Icon.jsx'
 import ItemImage from './ItemImage.jsx'
+import heartIcon from '../assets/icons/heart.svg'
 import { formatPrice, formatDistance } from '../data/items.js'
 import './ItemCard.css'
 
 export default function ItemCard({ item, saved, onToggleSave }) {
+  const isFree = item.price === 0
+
   return (
     <article className="item-card">
       <Link to={`/item/${item.id}`} className="item-card__link">
         <ItemImage item={item} className="item-card__image" />
         <div className="item-card__body">
-          <p className="item-card__price">{formatPrice(item.price)}</p>
+          <p className={`item-card__price${isFree ? ' item-card__price--free' : ''}`}>
+            {formatPrice(item.price)}
+          </p>
           <h3 className="item-card__title">{item.title}</h3>
           <p className="item-card__meta">
             {formatDistance(item.distanceKm)} · {item.postedAgo}
@@ -24,7 +29,7 @@ export default function ItemCard({ item, saved, onToggleSave }) {
         aria-pressed={saved}
         onClick={() => onToggleSave(item.id)}
       >
-        <Heart size={17} strokeWidth={2} fill={saved ? 'currentColor' : 'none'} />
+        <Icon src={heartIcon} size={17} />
       </button>
     </article>
   )
