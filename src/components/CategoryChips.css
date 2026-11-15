@@ -2,7 +2,7 @@
   display: flex;
   gap: 8px;
   overflow-x: auto;
-  margin: 0 -16px 20px;
+  margin: 0 -16px 24px;
   padding: 0 16px;
   scrollbar-width: none;
 }
@@ -13,12 +13,12 @@
 
 .chip {
   flex: none;
-  height: 34px;
-  padding: 0 14px;
+  height: 35px;
+  padding: 0 13px;
   border: 0;
   border-radius: var(--radius-pill);
   background: var(--chip);
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
   color: var(--text);
   transition: background-color 0.15s;

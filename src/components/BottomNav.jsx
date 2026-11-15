@@ -1,19 +1,24 @@
 import { NavLink } from 'react-router-dom'
-import { House, Map as MapIcon, Plus, MessageSquare, UserRound } from 'lucide-react'
+import Icon from './Icon.jsx'
+import homeIcon from '../assets/icons/home.svg'
+import mapIcon from '../assets/icons/map.svg'
+import plusIcon from '../assets/icons/plus.svg'
+import messageIcon from '../assets/icons/message.svg'
+import userIcon from '../assets/icons/user.svg'
 import './BottomNav.css'
 
 const TABS = [
-  { to: '/', label: 'Home', icon: House, end: true },
-  { to: '/nearby', label: 'Nearby', icon: MapIcon },
-  { to: '/post', label: 'Post', icon: Plus, primary: true },
-  { to: '/inbox', label: 'Inbox', icon: MessageSquare },
-  { to: '/you', label: 'You', icon: UserRound },
+  { to: '/', label: 'Home', icon: homeIcon, end: true },
+  { to: '/nearby', label: 'Nearby', icon: mapIcon },
+  { to: '/post', label: 'Post', icon: plusIcon, primary: true },
+  { to: '/inbox', label: 'Inbox', icon: messageIcon },
+  { to: '/you', label: 'You', icon: userIcon },
 ]
 
 export default function BottomNav() {
   return (
     <nav className="bottom-nav" aria-label="Main">
-      {TABS.map(({ to, label, icon: Icon, end, primary }) => (
+      {TABS.map(({ to, label, icon, end, primary }) => (
         <NavLink
           key={to}
           to={to}
@@ -25,7 +30,7 @@ export default function BottomNav() {
           }
         >
           <span className="bottom-nav__icon">
-            <Icon size={primary ? 24 : 21} strokeWidth={primary ? 2.25 : 1.75} />
+            <Icon src={icon} />
           </span>
           <span className="bottom-nav__label">{label}</span>
         </NavLink>

@@ -1,19 +1,21 @@
 .home__section-head {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
-  margin-bottom: 12px;
+  gap: 12px;
+  margin-bottom: 20px;
 }
 
 .home__section-head h2 {
   margin: 0;
-  font-size: 19px;
+  font-size: 20px;
+  line-height: 24px;
   font-weight: 700;
-  letter-spacing: -0.01em;
 }
 
 .home__section-head a {
-  font-size: 13px;
+  flex: none; /* on narrow phones the heading wraps, the link does not */
+  font-size: 12px;
   font-weight: 600;
   color: var(--green-900);
 }

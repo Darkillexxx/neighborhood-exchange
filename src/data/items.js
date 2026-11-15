@@ -1,6 +1,7 @@
 // Mock data until we have a backend.
-// `icon` is a lucide-react icon name used as a placeholder picture;
-// swap it for a real `image` URL later.
+// `image` is a photo in public/ (the path starts with "/").
+// Items without a photo show a placeholder instead: `icon` is a lucide-react
+// icon name and `tint` is the background color behind it.
 
 export const CURRENT_LOCATION = 'Bundesallee, Schöneberg'
 
@@ -24,6 +25,7 @@ export const ITEMS = [
     size: '160 × 85 × 80 cm',
     description: 'Comfy sage-green sofa, looking for a new home. Lightly used, with removable cushion covers. Moving soon, happy to arrange pickup.',
     seller: { name: 'Maya K.', since: 2023 },
+    image: '/items/linen-sofa.jpg',
     icon: 'Sofa',
     tint: '#dfe7dc',
   },
@@ -39,6 +41,7 @@ export const ITEMS = [
     size: '140 × 45 × 75 cm',
     description: 'Solid oak, a few scratches on top. Free if you pick it up this week.',
     seller: { name: 'Jonas B.', since: 2024 },
+    image: '/items/oak-sideboard.jpg',
     icon: 'Table',
     tint: '#ece3d6',
   },
@@ -54,6 +57,7 @@ export const ITEMS = [
     size: '30 × 25 × 35 cm',
     description: 'Works perfectly, descaled last month. Comes with the milk jug.',
     seller: { name: 'Lea S.', since: 2022 },
+    image: '/items/espresso-machine.jpg',
     icon: 'Coffee',
     tint: '#e9e2dc',
   },
@@ -69,6 +73,7 @@ export const ITEMS = [
     size: '60 × 60 × 85 cm',
     description: '7 kg, energy class A. Needs two people to carry, ground floor.',
     seller: { name: 'Ahmed R.', since: 2023 },
+    image: '/items/washer.jpg',
     icon: 'WashingMachine',
     tint: '#e1e6e8',
   },
@@ -133,6 +138,25 @@ export const ITEMS = [
     tint: '#e2e8e4',
   },
 ]
+
+function matchesCategory(item, category) {
+  if (category === 'all') return true
+  if (category === 'free') return item.price === 0
+  return item.category === category
+}
+
+/**
+ * The items shown on Home for the chosen chip and search text.
+ * @param {typeof ITEMS} items
+ * @param {{ query: string, category: string }} filter `category` is an id from CATEGORIES
+ * @returns {typeof ITEMS} a new list; `items` is not changed
+ */
+export function filterItems(items, { query, category }) {
+  const search = query.trim().toLowerCase()
+  return items.filter(
+    (item) => matchesCategory(item, category) && item.title.toLowerCase().includes(search),
+  )
+}
 
 export function formatPrice(price) {
   return price === 0 ? 'Free' : `€${price}`

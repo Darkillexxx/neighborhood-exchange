@@ -17,7 +17,7 @@ export default function App() {
   }, [pathname])
 
   return (
-    <div className="app">
+    <div className={showNav ? 'app app--with-nav' : 'app'}>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/item/:id" element={<ItemDetails />} />
