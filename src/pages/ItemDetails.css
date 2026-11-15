@@ -217,14 +217,23 @@
   flex: none;
 }
 
-/* Delete for the user's own item, at the end of the page */
+/* Delete for the user's own item, at the end of the page: a full-width red button */
 .details__delete {
-  display: block;
-  margin: 20px auto 4px;
-  padding: 10px 16px;
-  border: 0;
-  background: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  height: 50px;
+  margin-top: 16px;
+  border: 1px solid #ecc9c5;
+  border-radius: var(--radius);
+  background: #fdf3f2;
   color: #b4382f;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
+}
+
+.details__delete:active {
+  background: #f9e3e1;
 }

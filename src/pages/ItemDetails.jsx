@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
-import { CircleCheck, ChevronLeft, ChevronRight, Heart, MapPin, Share } from 'lucide-react'
+import { CircleCheck, ChevronLeft, ChevronRight, Heart, MapPin, Share, Trash2 } from 'lucide-react'
 import ItemImage from '../components/ItemImage.jsx'
 import useSaved from '../useSaved.js'
 import { formatPrice, formatDistance } from '../data/items.js'
@@ -178,6 +178,7 @@ export default function ItemDetails() {
         <ItemDetailsContent item={item}>
           {item.mine && (
             <button type="button" className="details__delete" onClick={() => setConfirming(true)}>
+              <Trash2 size={18} strokeWidth={2} />
               Delete listing
             </button>
           )}
