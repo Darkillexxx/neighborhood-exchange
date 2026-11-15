@@ -98,3 +98,39 @@ export function createListing(draft, { now = new Date(), id } = {}) {
     tint: category.tint,
   }
 }
+
+/** Fills the form with an item the user posted earlier, to edit it. */
+export function draftFromItem(item) {
+  return {
+    photos: item.photos ?? (item.image ? [item.image] : []),
+    title: item.title,
+    category: item.category,
+    condition: item.condition,
+    mode: item.price === 0 ? 'free' : 'sale',
+    price: item.price === 0 ? '' : String(item.price),
+    description: item.description ?? '',
+  }
+}
+
+/**
+ * The item after the user edited it: new fields from the form, but the same
+ * id, posting time, seller and place, so links and saved hearts keep working.
+ */
+export function applyDraft(item, draft) {
+  const changed = createListing(draft, { id: item.id, now: new Date(item.postedAt) })
+  return { ...changed, seller: item.seller, area: item.area, editedAt: new Date().toISOString() }
+}
+
+/**
+ * "Just listed", "3 hours ago", "Yesterday" or "4 days ago" for a posting time.
+ * @param {string} postedAt ISO date
+ * @param {Date} [now]
+ */
+export function formatPostedAgo(postedAt, now = new Date()) {
+  const minutes = Math.floor((now - new Date(postedAt)) / 60000)
+  if (Number.isNaN(minutes) || minutes < 60) return 'Just listed'
+  const hours = Math.floor(minutes / 60)
+  if (hours < 24) return hours === 1 ? '1 hour ago' : `${hours} hours ago`
+  const days = Math.floor(hours / 24)
+  return days === 1 ? 'Yesterday' : `${days} days ago`
+}

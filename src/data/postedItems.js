@@ -3,6 +3,7 @@
 // storage can be full or switched off, and the app should keep working.
 
 import { ITEMS } from './items.js'
+import { formatPostedAgo } from './listing.js'
 
 const ITEMS_KEY = 'nx-posted-items'
 const DRAFT_KEY = 'nx-post-draft'
@@ -25,8 +26,9 @@ function write(key, value) {
   }
 }
 
+/** The user's items, newest first, with an up-to-date "3 hours ago". */
 export function loadPostedItems() {
-  return read(ITEMS_KEY, [])
+  return read(ITEMS_KEY, []).map((item) => ({ ...item, postedAgo: formatPostedAgo(item.postedAt) }))
 }
 
 /** The user's own items first (newest first), then everyone else's. */
@@ -36,6 +38,14 @@ export function getAllItems() {
 
 export function addPostedItem(item) {
   return write(ITEMS_KEY, [item, ...loadPostedItems()])
+}
+
+/** Replaces the user's item that has the same id. */
+export function updatePostedItem(item) {
+  return write(
+    ITEMS_KEY,
+    loadPostedItems().map((old) => (old.id === item.id ? item : old)),
+  )
 }
 
 export function removePostedItem(id) {

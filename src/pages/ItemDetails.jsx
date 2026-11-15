@@ -92,6 +92,7 @@ export default function ItemDetails() {
   const navigate = useNavigate()
   const { isSaved, toggle } = useSaved()
   const [notice, setNotice] = useState('')
+  const [confirming, setConfirming] = useState(false)
   const item = useMemo(() => getAllItems().find((i) => i.id === id), [id])
 
   if (!item) {
@@ -124,9 +125,10 @@ export default function ItemDetails() {
     }
   }
 
+  // After deleting, the profile shows the item's name with an Undo button
   const remove = () => {
-    if (removePostedItem(item.id)) navigate('/', { replace: true })
-    else showNotice('Could not remove the listing')
+    if (removePostedItem(item.id)) navigate('/you', { replace: true, state: { deleted: item } })
+    else showNotice('Could not delete the item')
   }
 
   return (
@@ -159,13 +161,22 @@ export default function ItemDetails() {
       </main>
 
       <div className="action-bar">
-        {item.mine ? (
+        {item.mine && confirming ? (
           <>
-            <button type="button" className="btn btn--outline" onClick={remove}>
-              Remove
+            <button type="button" className="btn btn--outline" onClick={() => setConfirming(false)}>
+              Cancel
             </button>
-            <button type="button" className="btn btn--primary" onClick={() => navigate('/')}>
-              Back to Home
+            <button type="button" className="btn btn--danger" onClick={remove}>
+              Delete this item
+            </button>
+          </>
+        ) : item.mine ? (
+          <>
+            <button type="button" className="btn btn--outline btn--danger-text" onClick={() => setConfirming(true)}>
+              Delete
+            </button>
+            <button type="button" className="btn btn--primary" onClick={() => navigate(`/edit/${item.id}`)}>
+              Edit
             </button>
           </>
         ) : (

@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { Camera, ChevronDown, ChevronRight, MapPin, MapPinOff, X } from 'lucide-react'
 import { ItemDetailsContent } from './ItemDetails.jsx'
 import { CURRENT_LOCATION } from '../data/items.js'
@@ -9,22 +9,50 @@ import {
   MAX_PHOTOS,
   POST_CATEGORIES,
   TITLE_MAX,
+  applyDraft,
   cleanPrice,
   createListing,
+  draftFromItem,
   emptyDraft,
   validateListing,
 } from '../data/listing.js'
-import { addPostedItem, clearDraft, loadDraft, saveDraft } from '../data/postedItems.js'
+import {
+  addPostedItem,
+  clearDraft,
+  loadDraft,
+  loadPostedItems,
+  saveDraft,
+  updatePostedItem,
+} from '../data/postedItems.js'
 import { fileToPhoto } from '../data/photos.js'
 import './PostItem.css'
 
 // Fields in the order they appear, to focus the first one with an error
 const FIELD_ORDER = ['photos', 'title', 'price']
 
+// /post creates a new item; /edit/:id opens one of the user's items in the same form
 export default function PostItem() {
+  const { id: editId } = useParams()
+  const [editing] = useState(() => (editId ? loadPostedItems().find((item) => item.id === editId) : null))
+
+  if (editId && !editing) {
+    return (
+      <main className="screen">
+        <p>This item no longer exists.</p>
+        <Link to="/you">Back to your profile</Link>
+      </main>
+    )
+  }
+
+  return <PostForm editing={editing} />
+}
+
+function PostForm({ editing }) {
   const navigate = useNavigate()
   const location = useLocation()
-  const [draft, setDraft] = useState(() => ({ ...emptyDraft(), ...loadDraft() }))
+  const [draft, setDraft] = useState(() =>
+    editing ? draftFromItem(editing) : { ...emptyDraft(), ...loadDraft() },
+  )
   const [errors, setErrors] = useState({})
   const [addingPhotos, setAddingPhotos] = useState(false)
   const [preview, setPreview] = useState(false)
@@ -92,6 +120,12 @@ export default function PostItem() {
       setPreview(false)
       return
     }
+    if (editing) {
+      const item = applyDraft(editing, draft)
+      if (updatePostedItem(item)) navigate(`/item/${item.id}`, { replace: true })
+      else showNotice('Could not save: the photos take too much space. Try fewer photos.')
+      return
+    }
     const item = createListing(draft)
     if (!addPostedItem(item)) {
       showNotice('Could not post: the photos take too much space. Try fewer photos.')
@@ -100,6 +134,8 @@ export default function PostItem() {
     clearDraft()
     navigate(`/item/${item.id}`, { replace: true })
   }
+
+  const submitLabel = editing ? 'Save changes' : 'Post item'
 
   if (preview) {
     return (
@@ -113,14 +149,14 @@ export default function PostItem() {
         </header>
         <p className="post-preview__hint">This is how neighbors will see your item.</p>
         <main>
-          <ItemDetailsContent item={createListing(draft, { id: 'preview' })} />
+          <ItemDetailsContent item={editing ? applyDraft(editing, draft) : createListing(draft, { id: 'preview' })} />
         </main>
         <div className="action-bar">
           <button type="button" className="btn btn--outline post__secondary" onClick={() => setPreview(false)}>
             Edit
           </button>
           <button type="button" className="btn btn--primary" onClick={onPost}>
-            Post item
+            {submitLabel}
           </button>
         </div>
       </div>
@@ -133,10 +169,14 @@ export default function PostItem() {
         <button type="button" className="icon-btn" onClick={close} aria-label="Close">
           <X size={24} strokeWidth={1.9} />
         </button>
-        <h1 className="post__bar-title">Post an item</h1>
-        <button type="button" className="post__draft" onClick={onSaveDraft}>
-          Save draft
-        </button>
+        <h1 className="post__bar-title">{editing ? 'Edit item' : 'Post an item'}</h1>
+        {editing ? (
+          <span />
+        ) : (
+          <button type="button" className="post__draft" onClick={onSaveDraft}>
+            Save draft
+          </button>
+        )}
       </header>
 
       <form
@@ -345,7 +385,7 @@ export default function PostItem() {
             Preview
           </button>
           <button type="submit" className="btn btn--primary">
-            Post item
+            {submitLabel}
           </button>
         </div>
       </form>

@@ -145,6 +145,16 @@ a {
   color: #fff;
 }
 
+.btn--danger {
+  border: 0;
+  background: #b4382f;
+  color: #fff;
+}
+
+.btn--danger-text {
+  color: #b4382f;
+}
+
 .btn:disabled {
   opacity: 0.6;
   cursor: default;

@@ -1,0 +1,291 @@
+.profile__title {
+  margin: 4px 0 16px;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* Who you are */
+.profile__card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+
+.profile__avatar {
+  width: 52px;
+  height: 52px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--green-100);
+  color: var(--green-900);
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.profile__who {
+  flex: 1;
+  min-width: 0;
+}
+
+.profile__who p {
+  margin: 0;
+}
+
+.profile__name {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.profile__place {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 3px !important;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+.profile__stats {
+  display: flex;
+  gap: 14px;
+  margin: 0;
+  text-align: center;
+}
+
+.profile__stats dt {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.profile__stats dd {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Sections */
+.profile__section {
+  margin-top: 26px;
+}
+
+.profile__section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.profile__section-head h2 {
+  margin: 0;
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.profile__add {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+  background: var(--green-100);
+  color: var(--green-900);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.profile__empty {
+  padding: 20px 16px;
+  border: 1.5px dashed var(--border);
+  border-radius: var(--radius-lg);
+  text-align: center;
+}
+
+.profile__empty p,
+.profile__hint {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.profile__empty-btn {
+  display: inline-grid;
+  place-items: center;
+  margin-top: 14px;
+  padding: 0 24px;
+}
+
+/* Rows: photo, text, buttons on the right */
+.rows {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.row {
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.row.is-confirming {
+  border-color: #e7c3bf;
+}
+
+.row__top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 10px 10px 10px;
+}
+
+.row__main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.row__photo {
+  width: 64px;
+  height: 64px;
+  flex: none;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+  overflow: hidden;
+}
+
+.row__text {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.row__title {
+  font-size: 14.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.row__price {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.row__price--free {
+  color: var(--green-900);
+}
+
+.row__meta {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.row__actions {
+  display: flex;
+  gap: 6px;
+  flex: none;
+}
+
+.row__btn {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--text);
+}
+
+.row__btn--danger {
+  color: #b4382f;
+}
+
+.row__btn--danger[aria-expanded='true'] {
+  border-color: #b4382f;
+  background: #fbeceb;
+}
+
+.row__btn--saved {
+  color: #c2453b;
+}
+
+/* "Delete this item?" under the row */
+.row__confirm {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 10px 10px 14px;
+  border-top: 1px solid #f1d9d6;
+  background: #fdf5f4;
+  font-size: 14px;
+}
+
+.row__confirm span {
+  flex: 1;
+  font-weight: 500;
+}
+
+.row__confirm button {
+  height: 36px;
+  padding: 0 14px;
+  border-radius: var(--radius-pill);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.row__confirm-cancel {
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.row__confirm-delete {
+  border: 0;
+  background: #b4382f;
+  color: #fff;
+}
+
+/* Toast with an Undo button; sits above the bottom navigation */
+.toast--action {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  bottom: calc(var(--nav-height) + var(--nav-inset) + 12px);
+  max-width: calc(100% - 32px);
+  padding: 8px 8px 8px 16px;
+}
+
+.toast--action span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.toast--action button {
+  flex: none;
+  padding: 6px 12px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.16);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+}

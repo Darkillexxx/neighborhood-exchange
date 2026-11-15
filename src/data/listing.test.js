@@ -1,5 +1,14 @@
 import { describe, expect, test } from 'vitest'
-import { MAX_PHOTOS, cleanPrice, createListing, emptyDraft, validateListing } from './listing.js'
+import {
+  MAX_PHOTOS,
+  applyDraft,
+  cleanPrice,
+  createListing,
+  draftFromItem,
+  emptyDraft,
+  formatPostedAgo,
+  validateListing,
+} from './listing.js'
 
 const filled = (changes = {}) => ({
   ...emptyDraft(),
@@ -81,5 +90,52 @@ describe('createListing', () => {
     const item = createListing(filled({ category: 'appliances' }), { now })
     expect(item.image).toBeUndefined()
     expect(item.icon).toBe('WashingMachine')
+  })
+})
+
+describe('draftFromItem', () => {
+  const now = new Date('2026-11-15T10:00:00Z')
+
+  test('gives back the form that created the item', () => {
+    const draft = filled({ photos: ['cover'], description: 'Comfy' })
+    expect(draftFromItem(createListing(draft, { now }))).toEqual(draft)
+  })
+
+  test('a free item opens with Give away selected and an empty price', () => {
+    const item = createListing(filled({ mode: 'free' }), { now })
+    expect(draftFromItem(item)).toMatchObject({ mode: 'free', price: '' })
+  })
+})
+
+describe('applyDraft', () => {
+  const now = new Date('2026-11-15T10:00:00Z')
+  const original = createListing(filled(), { now })
+
+  test('changes the fields from the form', () => {
+    const edited = applyDraft(original, { ...draftFromItem(original), title: 'Green sofa', price: '60' })
+    expect(edited).toMatchObject({ title: 'Green sofa', price: 60 })
+  })
+
+  test('keeps the id and the posting time, so links and saved items still work', () => {
+    const edited = applyDraft(original, { ...draftFromItem(original), title: 'Green sofa' })
+    expect(edited.id).toBe(original.id)
+    expect(edited.postedAt).toBe(original.postedAt)
+    expect(edited.mine).toBe(true)
+  })
+})
+
+describe('formatPostedAgo', () => {
+  const now = new Date('2026-11-15T10:00:00Z')
+  const ago = (minutes) => new Date(now - minutes * 60000).toISOString()
+
+  test('within the first hour the item is just listed', () => {
+    expect(formatPostedAgo(ago(59), now)).toBe('Just listed')
+  })
+
+  test('counts hours, then days', () => {
+    expect(formatPostedAgo(ago(60), now)).toBe('1 hour ago')
+    expect(formatPostedAgo(ago(5 * 60), now)).toBe('5 hours ago')
+    expect(formatPostedAgo(ago(24 * 60), now)).toBe('Yesterday')
+    expect(formatPostedAgo(ago(3 * 24 * 60), now)).toBe('3 days ago')
   })
 })
