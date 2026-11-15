@@ -197,3 +197,34 @@
   color: var(--muted);
 }
 
+
+/* "Your item is posted" banner above the photo */
+.details__flash {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 16px 12px;
+  padding: 12px 14px;
+  border-radius: var(--radius);
+  background: var(--green-100);
+  color: var(--green-900);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.details__flash svg {
+  flex: none;
+}
+
+/* Delete for the user's own item, at the end of the page */
+.details__delete {
+  display: block;
+  margin: 20px auto 4px;
+  padding: 10px 16px;
+  border: 0;
+  background: none;
+  color: #b4382f;
+  font-size: 14px;
+  font-weight: 600;
+}

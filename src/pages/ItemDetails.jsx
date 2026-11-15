@@ -1,10 +1,11 @@
 import { useMemo, useState } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
-import { ChevronLeft, ChevronRight, Heart, MapPin, Share } from 'lucide-react'
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
+import { CircleCheck, ChevronLeft, ChevronRight, Heart, MapPin, Share } from 'lucide-react'
 import ItemImage from '../components/ItemImage.jsx'
 import useSaved from '../useSaved.js'
 import { formatPrice, formatDistance } from '../data/items.js'
 import { getAllItems, removePostedItem } from '../data/postedItems.js'
+import { takeFlash } from '../flash.js'
 import './ItemDetails.css'
 
 function initials(name) {
@@ -21,7 +22,7 @@ function initials(name) {
  * Also used by the Preview on the Post screen, so a draft looks exactly like
  * the posted item will.
  */
-export function ItemDetailsContent({ item }) {
+export function ItemDetailsContent({ item, children }) {
   const distance = formatDistance(item.distanceKm)
   const tags = [item.condition, item.size].filter(Boolean)
 
@@ -82,6 +83,8 @@ export function ItemDetailsContent({ item }) {
             <p className="pickup__note">Exact address shared by the seller.</p>
           </div>
         </div>
+
+        {children}
       </div>
     </>
   )
@@ -90,6 +93,9 @@ export function ItemDetailsContent({ item }) {
 export default function ItemDetails() {
   const { id } = useParams()
   const navigate = useNavigate()
+  const location = useLocation()
+  // "Your item is posted" / "Changes saved", passed on by the Post form
+  const [flash] = useState(takeFlash)
   const { isSaved, toggle } = useSaved()
   const [notice, setNotice] = useState('')
   const [confirming, setConfirming] = useState(false)
@@ -125,6 +131,12 @@ export default function ItemDetails() {
     }
   }
 
+  // Done: back to where the user came from, e.g. Home or the profile after posting
+  const done = () => {
+    if (location.key === 'default') navigate('/')
+    else navigate(-1)
+  }
+
   // After deleting, the profile shows the item's name with an Undo button
   const remove = () => {
     if (removePostedItem(item.id)) navigate('/you', { replace: true, state: { deleted: item } })
@@ -157,7 +169,19 @@ export default function ItemDetails() {
       </header>
 
       <main>
-        <ItemDetailsContent item={item} />
+        {flash && (
+          <p className="details__flash" role="status">
+            <CircleCheck size={20} strokeWidth={2} />
+            {flash}
+          </p>
+        )}
+        <ItemDetailsContent item={item}>
+          {item.mine && (
+            <button type="button" className="details__delete" onClick={() => setConfirming(true)}>
+              Delete listing
+            </button>
+          )}
+        </ItemDetailsContent>
       </main>
 
       <div className="action-bar">
@@ -172,11 +196,15 @@ export default function ItemDetails() {
           </>
         ) : item.mine ? (
           <>
-            <button type="button" className="btn btn--outline btn--danger-text" onClick={() => setConfirming(true)}>
-              Delete
-            </button>
-            <button type="button" className="btn btn--primary" onClick={() => navigate(`/edit/${item.id}`)}>
+            <button
+              type="button"
+              className="btn btn--outline"
+              onClick={() => navigate(`/edit/${item.id}`, { state: { from: 'item' } })}
+            >
               Edit
+            </button>
+            <button type="button" className="btn btn--primary" onClick={done}>
+              Done
             </button>
           </>
         ) : (

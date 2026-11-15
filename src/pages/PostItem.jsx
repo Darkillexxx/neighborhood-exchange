@@ -25,6 +25,7 @@ import {
   updatePostedItem,
 } from '../data/postedItems.js'
 import { fileToPhoto } from '../data/photos.js'
+import { setFlash } from '../flash.js'
 import './PostItem.css'
 
 // Fields in the order they appear, to focus the first one with an error
@@ -122,8 +123,14 @@ function PostForm({ editing }) {
     }
     if (editing) {
       const item = applyDraft(editing, draft)
-      if (updatePostedItem(item)) navigate(`/item/${item.id}`, { replace: true })
-      else showNotice('Could not save: the photos take too much space. Try fewer photos.')
+      if (!updatePostedItem(item)) {
+        showNotice('Could not save: the photos take too much space. Try fewer photos.')
+        return
+      }
+      setFlash('Changes saved.')
+      // opened from the item page: go back to it; opened from the profile: show the item
+      if (location.state?.from === 'item') navigate(-1)
+      else navigate(`/item/${item.id}`, { replace: true })
       return
     }
     const item = createListing(draft)
@@ -132,6 +139,7 @@ function PostForm({ editing }) {
       return
     }
     clearDraft()
+    setFlash('Your item is posted. Neighbors nearby can see it now.')
     navigate(`/item/${item.id}`, { replace: true })
   }
 
