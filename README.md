@@ -20,6 +20,19 @@ npm run lint
 npm run build
 ```
 
+## Live version
+
+Every push to `main` is built and published to GitHub Pages automatically
+(see `.github/workflows/deploy.yml`):
+https://darkillexxx.github.io/neighborhood-exchange/
+
+To check the production build locally:
+
+```bash
+npm run build
+npm run preview
+```
+
 ## Project structure
 
 ```
