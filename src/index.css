@@ -24,7 +24,8 @@
   --nav-height: 71px;
   --nav-inset: max(24px, env(safe-area-inset-bottom, 0px));
 
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  /* Inter is loaded in main.jsx; the rest is the fallback while it downloads */
+  font-family: "Inter Variable", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   color: var(--text);
   background: var(--desk);
   color-scheme: light;
