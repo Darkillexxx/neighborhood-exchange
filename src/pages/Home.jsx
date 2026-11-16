@@ -5,7 +5,8 @@ import SearchBar from '../components/SearchBar.jsx'
 import CategoryChips from '../components/CategoryChips.jsx'
 import ItemCard from '../components/ItemCard.jsx'
 import useSaved from '../useSaved.js'
-import { CATEGORIES, ITEMS, filterItems } from '../data/items.js'
+import { CATEGORIES, filterItems } from '../data/items.js'
+import { getAllItems } from '../data/postedItems.js'
 import './Home.css'
 
 export default function Home() {
@@ -13,7 +14,8 @@ export default function Home() {
   const [category, setCategory] = useState('all')
   const { isSaved, toggle } = useSaved()
 
-  const items = filterItems(ITEMS, { query, category })
+  const [allItems] = useState(getAllItems) // the user's own posts first
+  const items = filterItems(allItems, { query, category })
 
   return (
     <main className="screen home">

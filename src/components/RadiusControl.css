@@ -1,0 +1,100 @@
+.radius {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: min(100% - 32px, 310px);
+}
+
+.radius__pill {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  height: 52px;
+  padding: 0 24px 0 28px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--green-900);
+  color: #fff;
+  box-shadow: 0 6px 16px rgba(32, 59, 49, 0.18);
+}
+
+.radius__label {
+  font-size: 13px;
+  font-weight: 500;
+  opacity: 0.75;
+}
+
+.radius__value {
+  font-size: 20px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  min-width: 4.2ch;
+  text-align: right;
+}
+
+.radius__chevron {
+  transition: transform 0.2s;
+}
+
+.radius__chevron.is-closed {
+  transform: rotate(180deg);
+}
+
+.radius__panel {
+  width: 100%;
+  padding: 16px 12px 10px;
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: 0 6px 20px rgba(32, 59, 49, 0.12);
+}
+
+.radius__scale {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 4px;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+/* Slider: green up to the thumb (--fill), light after it */
+.radius__slider {
+  display: block;
+  width: 100%;
+  height: 22px;
+  margin: 0;
+  background: transparent;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+
+.radius__slider::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(to right, var(--green-900) var(--fill), var(--border) var(--fill));
+}
+
+.radius__slider::-moz-range-track {
+  height: 5px;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(to right, var(--green-900) var(--fill), var(--border) var(--fill));
+}
+
+.radius__slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  margin-top: -8.5px;
+  border: 3px solid var(--green-900);
+  border-radius: 50%;
+  background: var(--surface);
+}
+
+.radius__slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border: 3px solid var(--green-900);
+  border-radius: 50%;
+  background: var(--surface);
+}

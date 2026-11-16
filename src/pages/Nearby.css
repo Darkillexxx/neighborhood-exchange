@@ -1,0 +1,172 @@
+/* Nearby fills the screen above the bottom navigation; only the map area grows */
+.nearby {
+  --map-street: #ffffff;
+  --map-block: #e2e8df;
+  --map-park: #dde9d5;
+
+  display: flex;
+  flex-direction: column;
+  height: calc(100dvh - var(--nav-height) - var(--nav-inset));
+}
+
+.nearby__head {
+  flex: none;
+}
+
+.nearby__head .chips {
+  margin-bottom: 0;
+}
+
+/* The radius pill sits half over the header and half over the map */
+.nearby__map-area {
+  position: relative;
+  flex: 1;
+  min-height: 300px;
+  margin-top: 44px;
+}
+
+.nearby__radius {
+  position: absolute;
+  top: -26px;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.nearby__radius > * {
+  pointer-events: auto;
+}
+
+.map {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: var(--map-street);
+}
+
+/* (0, 0) of every layer below is the user's position: the middle of the map */
+.map__world,
+.map__circle,
+.map__me,
+.map-pin {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+}
+
+.map__world {
+  width: 0;
+  height: 0;
+  transform-origin: 0 0;
+}
+
+.map__world svg {
+  position: absolute;
+  display: block;
+}
+
+.map__street-label {
+  position: absolute;
+  left: 50%;
+  top: 82%;
+  transform: translateX(-50%) rotate(-90deg);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.map__circle {
+  translate: -50% -50%;
+  border: 1.5px dashed rgba(40, 94, 70, 0.35);
+  border-radius: 50%;
+  background: rgba(40, 94, 70, 0.12);
+  pointer-events: none;
+  transition: width 0.2s ease-out, height 0.2s ease-out;
+}
+
+/* The user: green dot in a white ring in a light green ring */
+.map__me {
+  width: 36px;
+  height: 36px;
+  translate: -50% -50%;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--green-900) 0 5px, #fff 5.5px 9px, #9ebd7f 9.5px);
+  box-shadow: 0 2px 6px rgba(32, 59, 49, 0.2);
+}
+
+/* Price pins: the pin's middle sits on the item's spot */
+.map-pin {
+  z-index: 2;
+  transition: opacity 0.2s;
+}
+
+.map-pin__body {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  translate: -50% -50%;
+  padding: 4px 16px 4px 4px;
+  border-radius: var(--radius-pill);
+  background: var(--green-900);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(32, 59, 49, 0.25);
+  white-space: nowrap;
+}
+
+.map-pin__photo {
+  width: 36px;
+  height: 36px;
+  flex: none;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.85);
+  overflow: hidden;
+}
+
+.map-pin__price {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+/* Items outside the radius stay on the map, faded */
+.map-pin--far {
+  z-index: 1;
+  opacity: 0.45;
+}
+
+.map__empty {
+  position: absolute;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: calc(100% - 96px);
+  margin: 0;
+  padding: 10px 16px;
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  box-shadow: 0 4px 14px rgba(32, 59, 49, 0.12);
+  font-size: 13px;
+  text-align: center;
+}
+
+.map__locate {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  z-index: 3;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--green-900);
+  box-shadow: 0 4px 12px rgba(32, 59, 49, 0.15);
+}
